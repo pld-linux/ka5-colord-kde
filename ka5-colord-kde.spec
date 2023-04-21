@@ -1,18 +1,18 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
-%define		kdeappsver	22.12.3
+%define		kdeappsver	23.04.0
 %define		kframever	5.103.0
 %define		qtver		5.15.2
 %define		kaname		colord-kde
 Summary:	colord KDE
 Name:		ka5-%{kaname}
-Version:	22.12.3
+Version:	23.04.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Libraries
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	163676616ebce9bd2de9896e52ab1dff
+# Source0-md5:	c3ef9c9ef419ed8c8158cb96dffead69
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= 5.15.2
 BuildRequires:	Qt5DBus-devel >= 5.15.2
@@ -85,7 +85,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc MAINTAINERS TODO
 %attr(755,root,root) %{_bindir}/colord-kde-icc-importer
-%{_libdir}/qt5/plugins/kcm_colord.so
-%{_libdir}/qt5/plugins/kf5/kded/colord.so
+%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kded/colord.so
+%attr(755,root,root) %{_libdir}/qt5/plugins/plasma/kcms/systemsettings/kcm_colord.so
+%dir %{_datadir}/kpackage/kcms/kcm_colord
+%dir %{_datadir}/kpackage/kcms/kcm_colord/contents
+%dir %{_datadir}/kpackage/kcms/kcm_colord/contents/ui
+%{_datadir}/kpackage/kcms/kcm_colord/contents/ui/ProfileMetaDataView.qml
+%{_datadir}/kpackage/kcms/kcm_colord/contents/ui/main.qml
 %{_desktopdir}/colordkdeiccimporter.desktop
-%{_datadir}/kservices5/kcm_colord.desktop
