@@ -1,18 +1,18 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
-%define		kdeappsver	23.04.3
+%define		kdeappsver	23.08.0
 %define		kframever	5.103.0
 %define		qtver		5.15.2
 %define		kaname		colord-kde
 Summary:	colord KDE
 Name:		ka5-%{kaname}
-Version:	23.04.3
+Version:	23.08.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Libraries
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	678989c4a90846c4ed2383ba56e0532a
+# Source0-md5:	f6a2ce4a879e22c40af2edd4f90e8a9d
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= 5.15.2
 BuildRequires:	Qt5DBus-devel >= 5.15.2
@@ -57,18 +57,16 @@ colord KDE
 %setup -q -n %{kaname}-%{version}
 
 %build
-install -d build
-cd build
 %cmake \
+	-B build \
 	-G Ninja \
 	%{!?with_tests:-DBUILD_TESTING=OFF} \
 	-DHTML_INSTALL_DIR=%{_kdedocdir} \
-	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-	..
-%ninja_build
+	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+%ninja_build -C build
 
 %if %{with tests}
-ctest
+ctest --test-dir build
 %endif
 
 
